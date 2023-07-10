@@ -1,6 +1,6 @@
 # Tello Drone Control Processing and micro:bit
 
-This repository shows how to operate a drone using [Processing](https://processing.org/) and [microBit](https://microbit.org/ja/).
+This repository shows how to operate a drone using [Processing](https://processing.org/) and [micro:bit](https://microbit.org/ja/).
 
 
 <img src="img/systemOverview.png" alt="SystemOverView" title="SystemOverView">
@@ -12,7 +12,10 @@ This repository shows how to operate a drone using [Processing](https://processi
 I could not use the latest UDP library. I have the UDP libraries I used in the repository.
 
 
-## micro:bit code
+## Micro:bit code
+Simple
+https://makecode.microbit.org/S70876-27321-00007-77896
+RC
 https://makecode.microbit.org/46595-70948-17917-88483
 
 ## How to
@@ -27,6 +30,6 @@ https://makecode.microbit.org/46595-70948-17917-88483
 以下に日本語の解説も載せておきます．
 https://qiita.com/kikpond15/items/d7d6c21221e4dfb93474
 
-## demo
+## Demo RC controller
 ![0bble-m8cnm](https://user-images.githubusercontent.com/29980030/131143768-073f5ef2-4388-4ab4-8b28-5dc2833e389b.gif)
 
