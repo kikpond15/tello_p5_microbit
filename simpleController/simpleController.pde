@@ -1,7 +1,7 @@
 /*
 microbit program here
-https://makecode.microbit.org/S70876-27321-00007-77896
-*/
+ https://makecode.microbit.org/S70876-27321-00007-77896
+ */
 
 import hypermedia.net.*;
 import processing.serial.*;
@@ -12,6 +12,7 @@ String ip = "192.168.10.1";
 int port = 8889;
 int readVal = -1;
 String distance = str(30);
+boolean isTakeoff = false;
 
 void setup() {
   size(400, 400);
@@ -19,7 +20,7 @@ void setup() {
   for (String s : portName) {
     println(s);
   }
-  microbit = new Serial(this, portName[2], 115200);
+  microbit = new Serial(this, portName[3], 115200);
   udp = new UDP(this, port);
   udp.listen(true);
   udp.send("command", ip, port);
@@ -30,22 +31,30 @@ void draw() {
   if (microbit.available() > 0) {
     String s = microbit.readString();
     readVal = int(s);
-    println(readVal);
+    //println(readVal);
 
-    if (readVal == 0) {
+    if (readVal == 1) {
+      isTakeoff = true;
       udp.send("takeoff", ip, port);
-    } else if (readVal == 1) {
+      sleep(2, "TakeOff");
+    } else if (readVal == 0) {
+      isTakeoff = false;
       udp.send("land", ip, port);
-    } else if (readVal == 2) {
-      udp.send("forward " + distance, ip, port);
-    } else if (readVal == 3) {
-      udp.send("left " + distance, ip, port);
-    } else if (readVal == 4) {
-      return ; 
-    } else if (readVal == 5) {
-      udp.send("right " + distance, ip, port);
-    } else if (readVal == 6) {
-      udp.send("back " + distance, ip, port);
+      sleep(2, "Land");
+    }
+
+    if (isTakeoff) {
+      if (readVal == 2) {
+        udp.send("forward " + distance, ip, port);
+      } else if (readVal == 3) {
+        udp.send("left " + distance, ip, port);
+      } else if (readVal == 4) {
+        return ;
+      } else if (readVal == 5) {
+        udp.send("right " + distance, ip, port);
+      } else if (readVal == 6) {
+        udp.send("back " + distance, ip, port);
+      }
     }
   }
 }
@@ -66,4 +75,11 @@ void receive(byte[] data, String ip, int port) {
   data = subset(data, 0, data.length);
   String recMess = new String(data);
   println(recMess);
+}
+
+void sleep(int sec, String mes) {
+  int timer = second()+sec;
+  println(mes + " Count:" + sec);
+  while (timer > second()) {
+  }
 }

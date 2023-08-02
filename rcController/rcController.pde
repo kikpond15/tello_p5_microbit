@@ -18,7 +18,7 @@ String recMess;
 void setup() {
   String []portName = Serial.list();
   println(portName);
-  microbit = new Serial(this, portName[2], 115200);
+  microbit = new Serial(this, portName[3], 115200);
   drone = new DroneContol();
   udp = new UDP(this, port);
   udp.listen(true);
@@ -31,8 +31,6 @@ void draw() {
 
 void serialEvent(Serial microbit) {
   String str = microbit.readStringUntil('\n');
-
-
   if (str != null) {
     str = trim(str);
     //String []strs = split(str, ',');
